@@ -2,7 +2,7 @@
 
 # Roger bot
 
-import chatServer as c
+import chatServerModifyGlobals as c
 import random
 
 
@@ -18,8 +18,10 @@ def output(s):
 # Setup and Response function
 def setup():
     global askedCounter, assignmentOrder
+    global numCounter
     askedCounter = 0
     assignmentOrder = 0
+    numCounter = 5
     output("Hello, my name is Roger.")
     sleep(1)
     output("What's up?")
@@ -27,7 +29,9 @@ def setup():
 
 def response(input):
     # print(input)
-    if respondToTrigger(input):
+    if respondCounting(input):
+        pass
+    elif respondToTrigger(input):
         pass
     else:
         output(defaultRandomResponse())
@@ -85,6 +89,15 @@ def randomAgainRemarks():
         "For the last time,"
     ]
     return random.choice(answers)
+
+
+def respondCounting(input):
+    global numCounter
+    if "count" == input:
+        output("counting up to %d" % numCounter)
+        numCounter += 1
+        return True
+    return False
 
 
 def respondToTrigger(input):
